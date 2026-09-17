@@ -1,69 +1,103 @@
 # Fastseo Website Reviewer
 
-Fastseo Website Reviewer is a free web-based SEO and performance auditing tool. It allows users to enter a website URL and review important search-engine optimization and page-performance signals from a single interface.
+**Fastseo Website Reviewer** is a free web-based tool for auditing websites for SEO and page-performance signals. It lets users submit a website URL and review important SEO, Lighthouse, PageSpeed, Core Web Vitals, and performance information from one interface.
 
-## What the website provides
+## 🌐 What the website provides
 
 ### 🔎 SEO Website Audit
-- Analyze a website URL from the browser.
-- Review important SEO-related information and recommendations.
-- Identify common optimization issues that can affect search visibility.
-- Present audit results in an easy-to-understand dashboard.
 
-### ⚡ Google Lighthouse & PageSpeed Analysis
-- Run Google PageSpeed Insights/Lighthouse analysis for a submitted URL.
-- Support both **Mobile** and **Desktop** strategies.
-- Display performance and Lighthouse scores.
-- Show Core Web Vitals and other performance metrics.
-- Highlight performance bottlenecks and optimization opportunities.
+Fastseo helps website owners, developers, bloggers, and SEO professionals review common website optimization signals, including:
 
-### 📊 Performance Metrics
-The results interface can display metrics such as:
+- SEO-related page information
+- Website performance signals
+- Common optimization issues
+- Search-engine optimization recommendations
+- Technical and on-page signals presented in an easy-to-understand dashboard
+
+### ⚡ Google PageSpeed & Lighthouse Analysis
+
+The website uses the Google PageSpeed Insights API to analyze a submitted URL and display available Lighthouse/PageSpeed data.
+
+The audit supports:
+
+- **Mobile** analysis
+- **Desktop** analysis
+- Performance scoring
+- Lighthouse metrics
+- Page-loading information
+- Optimization opportunities
+
+### 📊 Core Web Vitals & Performance Metrics
+
+Depending on the data returned by Google PageSpeed Insights, the results can include:
+
 - Performance score
 - First Contentful Paint (FCP)
 - Largest Contentful Paint (LCP)
 - Cumulative Layout Shift (CLS)
 - Total Blocking Time (TBT)
 - Speed Index
-- Additional Lighthouse/PageSpeed laboratory data
+- Other Lighthouse laboratory metrics
 - Chrome UX Report (CrUX) field data when available
 
 ### 🛠️ Optimization Opportunities
-The audit results provide performance opportunities that can help identify areas such as:
-- Image optimization
-- JavaScript and CSS optimization
+
+The results can highlight areas that may require optimization, such as:
+
+- Image delivery and optimization
+- JavaScript optimization
+- CSS optimization
 - Render-blocking resources
 - Unused resources
-- Loading and network performance
+- Loading performance
+- Network-related performance issues
 - Other Lighthouse recommendations
 
-### 📱 Responsive Interface
-- Mobile-friendly interface.
-- Responsive layout for desktop and mobile screens.
-- Mobile navigation menu.
-- Light and dark theme support.
-- Dashboard-style presentation of audit results.
+### 📱 Modern Responsive Interface
 
-### ❓ SEO Guidance & FAQ
-The website includes SEO-oriented explanations and an FAQ section covering topics such as Core Web Vitals, Lighthouse performance, SEO optimization, and website auditing.
+Fastseo is designed to work across different screen sizes and includes:
 
-## Technology Stack
+- Responsive desktop and mobile layout
+- Mobile navigation
+- Light and dark theme
+- Audit dashboard
+- Mobile/Desktop analysis tabs
+- Clear presentation of performance results
+
+### ❓ SEO Education & FAQ
+
+The website also provides SEO-oriented explanations and frequently asked questions related to website performance, Core Web Vitals, Lighthouse, PageSpeed, and SEO optimization.
+
+## 🧩 How the service works
+
+1. Enter the URL of the website you want to analyze.
+2. Select the desired analysis strategy: **Mobile** or **Desktop**.
+3. Start the audit.
+4. Fastseo requests audit data from the Google PageSpeed Insights API.
+5. The returned Lighthouse/PageSpeed information is processed and presented in the interface.
+6. Review scores, metrics, available CrUX data, and optimization opportunities.
+
+## 🛠️ Technology Stack
 
 - HTML5
 - CSS3
-- JavaScript (Vanilla JS)
+- Vanilla JavaScript
 - Tailwind CSS via CDN
-- Google Fonts (Inter)
+- Google Fonts – Inter
 - Google PageSpeed Insights API
 - Google Lighthouse/PageSpeed data
-- Chrome UX Report (CrUX) data when supplied by the PageSpeed API
+- Chrome UX Report (CrUX) data when available
 
-## Project Structure
+## 📁 Project Structure
 
 ```text
 rseo/
 ├── index.html
 ├── README.md
+├── LICENSE
+├── .gitignore
+├── CONTRIBUTING.md
+├── SECURITY.md
 └── assets/
     ├── css/
     │   └── style.css
@@ -71,44 +105,66 @@ rseo/
         └── script.js
 ```
 
-### Required files
+### Main files
 
-| File | Purpose |
+| File | Description |
 |---|---|
-| `index.html` | Main website interface and SEO audit page. |
+| `index.html` | Main Fastseo Website Reviewer interface. |
 | `assets/css/style.css` | Custom CSS used by the website. |
-| `assets/js/script.js` | Website functionality, PageSpeed requests, UI controls, and results rendering. |
+| `assets/js/script.js` | Application logic, PageSpeed requests, UI controls, and results rendering. |
 | `README.md` | Project documentation. |
+| `LICENSE` | Copyright and usage terms. |
+| `.gitignore` | Git files and local development exclusions. |
+| `CONTRIBUTING.md` | Contribution guidelines. |
+| `SECURITY.md` | Security issue reporting guidance. |
 
-No build process is required for the static front end. The project can be served directly as a static website.
+## 🚀 Deployment
 
-## How it works
+Fastseo is a static front-end project and can be deployed on services that support static websites, including GitHub Pages.
 
-1. The user enters a URL.
-2. The user selects **Mobile** or **Desktop** analysis.
-3. Fastseo sends the request to the Google PageSpeed Insights API.
-4. Lighthouse/PageSpeed results are processed in the browser.
-5. The interface displays scores, metrics, field data when available, and optimization opportunities.
+### GitHub Pages
 
-## Deployment
+1. Open the repository on GitHub.
+2. Go to **Settings → Pages**.
+3. Select the `main` branch as the deployment source.
+4. Select the repository root (`/`) when prompted.
+5. Save the configuration.
+6. GitHub Pages will publish `index.html` as the entry point.
 
-The project is suitable for static hosting, including **GitHub Pages**.
+No Node.js build step is required for the static front end.
 
-For GitHub Pages:
+## 🔐 API & Privacy Notes
 
-1. Open the repository **Settings → Pages**.
-2. Select the `main` branch as the publishing source.
-3. Select the repository root (`/`) as the folder when requested.
-4. Save the configuration.
-5. GitHub Pages will publish `index.html` as the website entry point.
+The application uses the Google PageSpeed Insights API to obtain website audit information. API availability, quotas, and Google service responses may affect the availability or completeness of results.
 
-## Important
+Audit results can vary according to the tested website, device strategy, network conditions, Lighthouse version, and availability of field data.
 
-- This project is a client-side static website.
-- The Google PageSpeed Insights API is used by the JavaScript application to obtain audit data.
-- API availability, quotas, and Google service responses can affect audit results.
-- Lighthouse and CrUX results can vary depending on the tested URL, device strategy, network conditions, and available field data.
+Users should avoid submitting private or sensitive URLs that they do not want processed by third-party services.
 
-## License
+## 👨‍💻 Owner & Developer
 
-No license has been specified for this repository. Unless a license is added, the repository remains subject to the default copyright rules applicable to its contents.
+**IMAD LIMRANI**
+
+- Website: https://larache.xyz
+- Email: info@larache.xyz
+
+## 📬 Contact
+
+For questions, feedback, technical matters, or website-related inquiries:
+
+**Email:** info@larache.xyz  
+**Website:** https://larache.xyz
+
+## 🤝 Contributing
+
+Contributions, bug reports, suggestions, and improvements are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting changes.
+
+## 🔒 Security
+
+If you discover a security vulnerability, please follow the instructions in [SECURITY.md](SECURITY.md) and avoid publishing sensitive vulnerability details in a public issue.
+
+## © Copyright
+
+Copyright © IMAD LIMRANI. All rights reserved unless otherwise stated in the repository.
+
+No open-source license is granted by default. See `LICENSE` for the applicable terms.
