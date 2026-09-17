@@ -1,4 +1,5 @@
 name: Finalize Asset Split
+# Final one-time navigation finalizer
 on:
   push:
     branches: [main]
@@ -19,7 +20,6 @@ jobs:
           p = Path('index.html')
           h = p.read_text(encoding='utf-8')
 
-          # Keep the existing split intact; only extract inline assets if they are still present.
           m = re.search(r'<style>\s*(.*?)\s*</style>', h, re.S)
           if m:
               Path('assets/css/style.css').write_text(m.group(1).strip()+'\n', encoding='utf-8')
