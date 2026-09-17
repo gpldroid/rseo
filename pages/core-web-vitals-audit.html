@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Web Vitals Audit | Fastseo</title>
+  <meta name="description" content="Audit Core Web Vitals including LCP, INP and CLS with Fastseo.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={darkMode:'class',theme:{extend:{colors:{brand:{500:'#1a73e8',600:'#1557b0',darkBg:'#0f172a',darkCard:'#1e293b',darkBorder:'#334155'}},fontFamily:{sans:['Inter','system-ui','sans-serif']}}}};</script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="bg-gray-50 dark:bg-brand-darkBg text-slate-800 dark:text-slate-100 min-h-screen">
+<header class="sticky top-0 z-50 bg-white/90 dark:bg-brand-darkCard/90 backdrop-blur-md border-b border-gray-200 dark:border-brand-darkBorder">
+  <div class="h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <a href="../" class="flex items-center gap-3">
+      <span class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold">⚡</span>
+      <span><strong class="text-lg">Fastseo</strong><small class="block text-xs text-gray-500 dark:text-gray-400">Website Reviewer</small></span>
+    </a>
+    <a href="../" class="text-sm font-bold text-brand-500 hover:text-brand-600">← Back to Home</a>
+  </div>
+</header>
+<main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+  <section class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-3xl p-7 sm:p-10 shadow-xl mb-8">
+    <span class="text-xs font-bold uppercase tracking-wider bg-white/20 px-3 py-1.5 rounded-full">Performance Tool</span>
+    <h1 class="text-3xl sm:text-4xl font-black mt-4">Core Web Vitals Audit</h1>
+    <p class="mt-3 text-blue-100 max-w-2xl">Check LCP, INP and CLS using Google PageSpeed Insights and review the key signals that affect real user experience.</p>
+  </section>
+  <section class="bg-white dark:bg-brand-darkCard rounded-2xl border border-gray-200 dark:border-brand-darkBorder p-6 shadow-sm">
+    <form id="auditForm" class="flex flex-col sm:flex-row gap-3">
+      <input id="url" type="url" required value="https://example.com" placeholder="https://example.com" class="flex-1 px-4 py-3.5 rounded-xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 outline-none focus:ring-2 focus:ring-brand-500">
+      <button class="px-7 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-bold">Audit Vitals</button>
+    </form>
+    <div id="status" class="mt-6 text-sm text-gray-500 dark:text-gray-400">Enter a URL to start the audit.</div>
+    <div id="results" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4 mt-6"></div>
+  </section>
+  <section class="grid md:grid-cols-3 gap-4 mt-8">
+    <article class="bg-white dark:bg-brand-darkCard rounded-2xl p-6 border border-gray-200 dark:border-brand-darkBorder"><h2 class="font-bold">LCP</h2><p class="text-sm text-gray-500 mt-2">Measures how quickly the main content becomes visible.</p></article>
+    <article class="bg-white dark:bg-brand-darkCard rounded-2xl p-6 border border-gray-200 dark:border-brand-darkBorder"><h2 class="font-bold">INP</h2><p class="text-sm text-gray-500 mt-2">Measures responsiveness to user interactions.</p></article>
+    <article class="bg-white dark:bg-brand-darkCard rounded-2xl p-6 border border-gray-200 dark:border-brand-darkBorder"><h2 class="font-bold">CLS</h2><p class="text-sm text-gray-500 mt-2">Measures unexpected visual layout movement.</p></article>
+  </section>
+</main>
+<script>
+const form=document.getElementById('auditForm'),status=document.getElementById('status'),results=document.getElementById('results');
+form.addEventListener('submit',async e=>{e.preventDefault();let u=document.getElementById('url').value.trim();status.textContent='Analyzing with Google PageSpeed Insights…';results.classList.add('hidden');try{const r=await fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+encodeURIComponent(u)+'&strategy=mobile');const d=await r.json();const a=d.lighthouseResult?.audits||{};const items=[['LCP',a['largest-contentful-paint']?.displayValue||'N/A'],['INP',a['interaction-to-next-paint']?.displayValue||'N/A'],['CLS',a['cumulative-layout-shift']?.displayValue||'N/A']];results.innerHTML=items.map(x=>`<div class="p-5 rounded-xl border border-gray-200 dark:border-gray-700"><div class="text-xs text-gray-500">${x[0]}</div><div class="text-2xl font-black mt-1">${x[1]}</div></div>`).join('');results.classList.remove('hidden');status.textContent='Audit completed.'}catch(err){status.textContent='The audit could not be completed. Please try again.'}});
+</script>
+</body>
+</html>
