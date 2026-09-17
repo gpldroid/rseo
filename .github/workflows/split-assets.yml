@@ -1,0 +1,54 @@
+name: Split HTML Assets
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Split inline CSS and JavaScript
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          p = Path('index.html')
+          html = p.read_text(encoding='utf-8')
+
+          style = re.search(r'<style>\s*(.*?)\s*</style>', html, re.S)
+          if not style:
+              raise SystemExit('Inline CSS block not found')
+
+          app_script = re.search(r'<script>\s*(const mobileMenuBtn\b.*?\n\s*)</script>', html, re.S)
+          if not app_script:
+              raise SystemExit('Application JavaScript block not found')
+
+          css = style.group(1).rstrip() + '\n'
+          js = app_script.group(1).rstrip() + '\n'
+
+          Path('assets/css').mkdir(parents=True, exist_ok=True)
+          Path('assets/js').mkdir(parents=True, exist_ok=True)
+          Path('assets/css/style.css').write_text(css, encoding='utf-8')
+          Path('assets/js/script.js').write_text(js, encoding='utf-8')
+
+          html = html[:style.start()] + '<link rel="stylesheet" href="assets/css/style.css">' + html[style.end():]
+          html = html[:app_script.start()] + '<script src="assets/js/script.js"></script>' + html[app_script.end():]
+          p.write_text(html, encoding='utf-8')
+          PY
+
+      - name: Commit split files and remove temporary workflow
+        run: |
+          rm -f .github/workflows/split-assets.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/css/style.css assets/js/script.js .github/workflows/split-assets.yml
+          git diff --cached --quiet || git commit -m "Split inline CSS and JavaScript into assets"
+          git push
