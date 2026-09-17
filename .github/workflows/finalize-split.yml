@@ -1,0 +1,40 @@
+name: Finalize Asset Split
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract and link assets
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path('index.html')
+          h = p.read_text(encoding='utf-8')
+          m = re.search(r'<style>\s*(.*?)\s*</style>', h, re.S)
+          if not m: raise SystemExit('STYLE_NOT_FOUND')
+          Path('assets/css/style.css').write_text(m.group(1).strip()+'\n', encoding='utf-8')
+          h = h[:m.start()] + '<link rel="stylesheet" href="assets/css/style.css">' + h[m.end():]
+          m = re.search(r'<script>\s*const mobileMenuBtn\s*=.*?</script>', h, re.S)
+          if not m: raise SystemExit('APP_SCRIPT_NOT_FOUND')
+          Path('assets/js/script.js').write_text(re.sub(r'^<script>\s*|\s*</script>$', '', m.group(0), flags=re.S).strip()+'\n', encoding='utf-8')
+          h = h[:m.start()] + '<script src="assets/js/script.js"></script>' + h[m.end():]
+          if '<style>' in h: raise SystemExit('INLINE_STYLE_REMAINS')
+          if 'const mobileMenuBtn' in h: raise SystemExit('INLINE_APP_JS_REMAINS')
+          if 'assets/css/style.css' not in h or 'assets/js/script.js' not in h: raise SystemExit('ASSET_LINKS_MISSING')
+          p.write_text(h, encoding='utf-8')
+          PY
+      - name: Commit and remove workflow
+        run: |
+          rm -f .github/workflows/finalize-split.yml
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html assets/css/style.css assets/js/script.js .github/workflows/finalize-split.yml
+          git diff --cached --quiet || git commit -m 'Finalize HTML asset split'
+          git push
