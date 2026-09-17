@@ -1,0 +1,32 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local environment files
+.env
+.env.*
+
+# Logs
+*.log
+
+# Node.js / package managers (if introduced for future development)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build / generated directories
+dist/
+build/
+coverage/
+
+# Local temporary files
+*.tmp
+*.temp
