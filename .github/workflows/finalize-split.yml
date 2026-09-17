@@ -5,36 +5,89 @@ on:
 permissions:
   contents: write
 jobs:
-  split:
+  finalize:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract and link assets
+      - name: Finalize assets and navigation
         shell: bash
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import re
+
           p = Path('index.html')
           h = p.read_text(encoding='utf-8')
+
+          # Keep the existing split intact; only extract inline assets if they are still present.
           m = re.search(r'<style>\s*(.*?)\s*</style>', h, re.S)
-          if not m: raise SystemExit('STYLE_NOT_FOUND')
-          Path('assets/css/style.css').write_text(m.group(1).strip()+'\n', encoding='utf-8')
-          h = h[:m.start()] + '<link rel="stylesheet" href="assets/css/style.css">' + h[m.end():]
+          if m:
+              Path('assets/css/style.css').write_text(m.group(1).strip()+'\n', encoding='utf-8')
+              h = h[:m.start()] + '<link rel="stylesheet" href="assets/css/style.css">' + h[m.end():]
+
           m = re.search(r'<script>\s*const mobileMenuBtn\s*=.*?</script>', h, re.S)
-          if not m: raise SystemExit('APP_SCRIPT_NOT_FOUND')
-          Path('assets/js/script.js').write_text(re.sub(r'^<script>\s*|\s*</script>$', '', m.group(0), flags=re.S).strip()+'\n', encoding='utf-8')
-          h = h[:m.start()] + '<script src="assets/js/script.js"></script>' + h[m.end():]
-          if '<style>' in h: raise SystemExit('INLINE_STYLE_REMAINS')
-          if 'const mobileMenuBtn' in h: raise SystemExit('INLINE_APP_JS_REMAINS')
-          if 'assets/css/style.css' not in h or 'assets/js/script.js' not in h: raise SystemExit('ASSET_LINKS_MISSING')
+          if m:
+              Path('assets/js/script.js').write_text(re.sub(r'^<script>\s*|\s*</script>$', '', m.group(0), flags=re.S).strip()+'\n', encoding='utf-8')
+              h = h[:m.start()] + '<script src="assets/js/script.js"></script>' + h[m.end():]
+
+          old_nav = '''<nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600 dark:text-gray-300">
+                <a href="#" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Home</a>
+                <a href="#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">SEO Audit</a>
+                <a href="#seo-checker-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Advanced Checker</a>
+                <a href="#top-tools" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Features</a>
+                <a href="#competitor-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Why Us</a>
+                <a href="#faq-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">FAQ</a>
+            </nav>'''
+          new_nav = '''<nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600 dark:text-gray-300">
+                <a href="#" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Home</a>
+                <a href="#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">SEO Audit</a>
+                <div class="relative group">
+                    <button type="button" class="flex items-center gap-1.5 hover:text-brand-500 dark:hover:text-blue-400 transition py-5">SEO Tools <svg class="w-3.5 h-3.5 fill-current transition-transform group-hover:rotate-180" viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l1.41 1.41-7.41 7.41-7.41-7.41z"/></svg></button>
+                    <div class="absolute right-0 top-full w-64 p-2 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-brand-darkBorder shadow-2xl opacity-0 invisible translate-y-2 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 transition-all duration-200">
+                        <a href="pages/core-web-vitals-audit.html" class="block rounded-xl px-4 py-3 hover:bg-blue-50 dark:hover:bg-slate-800 transition"><span class="block font-bold text-gray-900 dark:text-white">Core Web Vitals Audit</span><span class="text-[11px] text-gray-500 dark:text-gray-400">LCP, INP & CLS</span></a>
+                        <a href="pages/pagespeed-performance.html" class="block rounded-xl px-4 py-3 hover:bg-blue-50 dark:hover:bg-slate-800 transition"><span class="block font-bold text-gray-900 dark:text-white">PageSpeed Performance</span><span class="text-[11px] text-gray-500 dark:text-gray-400">Lighthouse performance</span></a>
+                        <a href="pages/on-page-seo-checker.html" class="block rounded-xl px-4 py-3 hover:bg-blue-50 dark:hover:bg-slate-800 transition"><span class="block font-bold text-gray-900 dark:text-white">On-Page SEO Checker</span><span class="text-[11px] text-gray-500 dark:text-gray-400">Meta, headings & links</span></a>
+                        <a href="pages/mobile-ux-test.html" class="block rounded-xl px-4 py-3 hover:bg-blue-50 dark:hover:bg-slate-800 transition"><span class="block font-bold text-gray-900 dark:text-white">Mobile UX Test</span><span class="text-[11px] text-gray-500 dark:text-gray-400">Mobile usability & speed</span></a>
+                    </div>
+                </div>
+                <a href="#top-tools" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Features</a>
+                <a href="#competitor-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Why Us</a>
+                <a href="#faq-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">FAQ</a>
+            </nav>'''
+
+          old_mobile = '''<div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-white/95 to-blue-50/60 dark:from-brand-darkCard/95 dark:to-slate-900/95 backdrop-blur-xl border-b border-gray-200/80 dark:border-brand-darkBorder px-4 pt-3 pb-4 space-y-2 text-sm font-semibold text-gray-700 dark:text-gray-200 shadow-xl shadow-blue-500/10">
+            <a href="#" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Home</a>
+            <a href="#audit-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">SEO Audit</a>
+            <a href="#seo-checker-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Advanced Checker</a>
+            <a href="#top-tools" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Features</a>
+            <a href="#competitor-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Why Us</a>
+            <a href="#faq-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">FAQ</a>
+        </div>'''
+          new_mobile = '''<div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-white/95 to-blue-50/60 dark:from-brand-darkCard/95 dark:to-slate-900/95 backdrop-blur-xl border-b border-gray-200/80 dark:border-brand-darkBorder px-4 pt-3 pb-4 space-y-2 text-sm font-semibold text-gray-700 dark:text-gray-200 shadow-xl shadow-blue-500/10">
+            <a href="#" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Home</a>
+            <a href="#audit-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">SEO Audit</a>
+            <div class="px-1 pt-2 pb-1 text-[10px] uppercase tracking-wider text-gray-400 dark:text-gray-500">SEO Tools</div>
+            <a href="pages/core-web-vitals-audit.html" class="block py-2.5 px-3 rounded-xl bg-blue-50/70 dark:bg-slate-800/70 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Core Web Vitals Audit</a>
+            <a href="pages/pagespeed-performance.html" class="block py-2.5 px-3 rounded-xl bg-blue-50/70 dark:bg-slate-800/70 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">PageSpeed Performance</a>
+            <a href="pages/on-page-seo-checker.html" class="block py-2.5 px-3 rounded-xl bg-blue-50/70 dark:bg-slate-800/70 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">On-Page SEO Checker</a>
+            <a href="pages/mobile-ux-test.html" class="block py-2.5 px-3 rounded-xl bg-blue-50/70 dark:bg-slate-800/70 hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Mobile UX Test</a>
+            <a href="#top-tools" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Features</a>
+            <a href="#competitor-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Why Us</a>
+            <a href="#faq-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">FAQ</a>
+        </div>'''
+
+          if old_nav not in h or old_mobile not in h:
+              raise SystemExit('EXPECTED_NAVIGATION_NOT_FOUND')
+          h = h.replace(old_nav, new_nav, 1).replace(old_mobile, new_mobile, 1)
+          if '<style>' in h or 'const mobileMenuBtn' in h:
+              raise SystemExit('INLINE_ASSET_REMAINS')
           p.write_text(h, encoding='utf-8')
           PY
-      - name: Commit and remove workflow
+      - name: Commit changes and remove workflow
         run: |
-          rm -f .github/workflows/finalize-split.yml
+          rm -f .github/workflows/finalize-split.yml .github/workflows/add-seo-tools-menu.yml
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html assets/css/style.css assets/js/script.js .github/workflows/finalize-split.yml
-          git diff --cached --quiet || git commit -m 'Finalize HTML asset split'
+          git add index.html assets/css/style.css assets/js/script.js .github/workflows/finalize-split.yml .github/workflows/add-seo-tools-menu.yml
+          git diff --cached --quiet || git commit -m 'Add SEO tools navigation'
           git push
