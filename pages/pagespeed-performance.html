@@ -179,6 +179,6 @@
         </div>
     </footer>
 <script>f.addEventListener('submit',async e=>{e.preventDefault();st.textContent='Running Lighthouse audit…';out.classList.add('hidden');try{let r=await fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+encodeURIComponent(u.value)+'&strategy='+s.value);let d=await r.json(),lh=d.lighthouseResult||{},score=Math.round((lh.categories?.performance?.score||0)*100),a=lh.audits||{};let x=[['Performance',score+'/100'],['FCP',a['first-contentful-paint']?.displayValue||'N/A'],['LCP',a['largest-contentful-paint']?.displayValue||'N/A'],['TBT',a['total-blocking-time']?.displayValue||'N/A']];out.innerHTML=x.map(i=>`<div class="p-5 rounded-xl border border-gray-200 dark:border-gray-700"><div class="text-xs text-gray-500">${i[0]}</div><div class="text-2xl font-black mt-1">${i[1]}</div></div>`).join('');out.classList.remove('hidden');st.textContent='Performance audit completed.'}catch(e){st.textContent='Unable to retrieve PageSpeed data. Please try again.'}});</script>
-<script src="../assets/js/script.js"></script>
-<script src="../assets/js/consent.js"></script>
+<script defer src="../assets/js/script.js"></script>
+<script defer src="../assets/js/consent.js"></script>
 </body></html>
