@@ -1,0 +1,14 @@
+name = "prftools-pagespeed-api"
+main = "api/pagespeed.js"
+compatibility_date = "2026-09-18"
+
+[[routes]]
+pattern = "prftools.cloud/api/*"
+zone_name = "prftools.cloud"
+
+[[routes]]
+pattern = "www.prftools.cloud/api/*"
+zone_name = "prftools.cloud"
+
+[secrets]
+required = ["PAGESPEED_API_KEY"]
