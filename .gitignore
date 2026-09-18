@@ -30,3 +30,7 @@ coverage/
 # Local temporary files
 *.tmp
 *.temp
+
+# Cloudflare Workers local secrets and state
+.dev.vars*
+.wrangler/
