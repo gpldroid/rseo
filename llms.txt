@@ -1,0 +1,34 @@
+# Fastseo Website Reviewer
+
+> Fastseo Website Reviewer is a free web-based toolkit for SEO auditing, PageSpeed performance analysis, Core Web Vitals, mobile UX testing, and on-page SEO review.
+
+## Core Tools
+
+- [Website SEO & Performance Audit](https://prftools.cloud/)
+- [Core Web Vitals Audit](https://prftools.cloud/pages/core-web-vitals-audit.html)
+- [Mobile UX Test](https://prftools.cloud/pages/mobile-ux-test.html)
+- [On-Page SEO Checker](https://prftools.cloud/pages/on-page-seo-checker.html)
+- [PageSpeed Performance](https://prftools.cloud/pages/pagespeed-performance.html)
+
+## Resources
+
+- [Blog Archive](https://prftools.cloud/blog/index.html)
+- [Sitemap](https://prftools.cloud/sitemap.html)
+- [About](https://prftools.cloud/about.html)
+- [Contact](https://prftools.cloud/contact.html)
+
+## Policies
+
+- [Privacy Policy](https://prftools.cloud/privacy-policy.html)
+- [Terms of Service](https://prftools.cloud/terms.html)
+- [GDPR](https://prftools.cloud/gdpr.html)
+- [CCPA](https://prftools.cloud/ccpa.html)
+- [DMCA](https://prftools.cloud/dmca.html)
+- [Disclaimer](https://prftools.cloud/disclaimer.html)
+
+## Site Information
+
+- Primary domain: https://prftools.cloud/
+- Language: English
+- Site type: SEO and website performance tools
+- Author: IMAD LIMRANI
