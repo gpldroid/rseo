@@ -38,7 +38,7 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const themeSvg = document.getElementById('themeSvg');
         const runDeepAuditBtn = document.getElementById('runDeepAuditBtn');
 
-        const SYSTEM_API_KEY = "AIzaSyBb_vtTMLnYeQyKzwrWM7eJQ-MQxnk1Mpw";
+        const API_ENDPOINT = '/api/pagespeed';
         let currentStrategy = 'mobile';
         let isDarkMode = false;
 
@@ -128,7 +128,7 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
                 if (submitBtn) submitBtn.disabled = true;
 
                 try {
-                    const apiEndpoint = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=${currentStrategy}&key=${SYSTEM_API_KEY}`;
+                    const apiEndpoint = `${API_ENDPOINT}?url=${encodeURIComponent(url)}&strategy=${encodeURIComponent(currentStrategy)}`;
                     const response = await fetch(apiEndpoint);
                     const data = await response.json();
 
