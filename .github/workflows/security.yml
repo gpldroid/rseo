@@ -1,0 +1,37 @@
+name: Security Checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secret-scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check repository for exposed Google API keys
+        shell: bash
+        run: |
+          if git grep -nE 'AIza[0-9A-Za-z_-]{20,}' -- ':!*.md'; then
+            echo "::error::A Google API key pattern was found in tracked source files."
+            exit 1
+          fi
+
+      - name: Check for common secret assignment patterns
+        shell: bash
+        run: |
+          if git grep -nE '(SYSTEM_API_KEY|API_KEY|SECRET_KEY)[[:space:]]*=[[:space:]]*["'"''][^"'"'']+["'"'']' -- ':!README.md' ':!SECURITY.md'; then
+            echo "::error::A hard-coded secret assignment pattern was found."
+            exit 1
+          fi
