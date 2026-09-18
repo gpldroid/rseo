@@ -1,0 +1,43 @@
+name: Deploy PageSpeed API
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "api/**"
+      - "wrangler.toml"
+      - ".github/workflows/deploy-pagespeed-api.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pagespeed-api-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: production
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+
+      - name: Update PageSpeed secret
+        shell: bash
+        env:
+          PAGESPEED_API_KEY: ${{ secrets.PAGESPEED_API_KEY }}
+        run: |
+          test -n "$PAGESPEED_API_KEY"
+          printf '%s' "$PAGESPEED_API_KEY" | npx wrangler secret put PAGESPEED_API_KEY --name prftools-pagespeed-api
