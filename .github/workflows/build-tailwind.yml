@@ -32,7 +32,7 @@ jobs:
 
       - name: Commit generated CSS
         run: |
-          if git diff --quiet -- assets/css/tailwind.css; then
+          if git diff --quiet -- assets/css/tailwind.css && test -z "$(git status --porcelain -- assets/css/tailwind.css)"; then
             echo "Tailwind CSS is already up to date."
             exit 0
           fi
