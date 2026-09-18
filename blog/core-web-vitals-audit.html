@@ -215,6 +215,24 @@ tailwind.config = {
             </div>
         </div>
     </footer>
+
+    <!-- Floating Navigation -->
+    <div class="fixed bottom-6 right-6 z-40 flex flex-col gap-2.5">
+        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll to top" title="Scroll to Top"
+            class="w-11 h-11 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-110 active:scale-95 transition-all duration-200 flex items-center justify-center group">
+            <svg class="w-5 h-5 fill-current group-hover:-translate-y-0.5 transition-transform" viewBox="0 0 24 24">
+                <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+            </svg>
+        </button>
+
+        <button onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})" aria-label="Scroll to bottom" title="Scroll to Bottom"
+            class="w-11 h-11 rounded-xl bg-white/90 dark:bg-brand-darkCard/90 backdrop-blur-md border border-gray-200 dark:border-brand-darkBorder text-gray-700 dark:text-gray-200 shadow-lg shadow-black/5 hover:shadow-black/10 hover:scale-110 active:scale-95 transition-all duration-200 flex items-center justify-center group">
+            <svg class="w-5 h-5 fill-current group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6-6-6 6z"/>
+            </svg>
+        </button>
+    </div>
+
 <script>
         const blogMenuBtn = document.getElementById('blogMenuBtn');
         const blogMenu = document.getElementById('blogMenu');
