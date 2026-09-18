@@ -11,17 +11,60 @@
   <link rel="stylesheet" href="../assets/css/style.css">
 <link rel="stylesheet" href="../assets/css/consent.css">
 </head>
-<body class="bg-gray-50 dark:bg-brand-darkBg text-slate-800 dark:text-slate-100 min-h-screen">
-<header class="sticky top-0 z-50 bg-white/90 dark:bg-brand-darkCard/90 backdrop-blur-md border-b border-gray-200 dark:border-brand-darkBorder">
-  <div class="h-1 bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-    <a href="../" class="flex items-center gap-3">
-      <span class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white font-bold">⚡</span>
-      <span><strong class="text-lg">Fastseo</strong><small class="block text-xs text-gray-500 dark:text-gray-400">Website Reviewer</small></span>
-    </a>
-    <a href="../" class="text-sm font-bold text-brand-500 hover:text-brand-600">← Back to Home</a>
-  </div>
-</header>
+<body class="bg-gray-50 dark:bg-brand-darkBg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white no-copy">
+<header class="bg-white/90 dark:bg-brand-darkCard/90 backdrop-blur-md border-b border-gray-200/80 dark:border-brand-darkBorder sticky top-0 z-50 shadow-lg shadow-blue-500/10 dark:shadow-indigo-500/10">
+        <div class="h-1 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M11 15H6l7-14v8h5l-7 14v-8z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg leading-tight flex items-center gap-2 tracking-tight">
+                        <span>Fastseo</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/60 text-brand-500 dark:text-blue-300">Website Reviewer</span>
+                    </h1>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Free Tools for SEO & Speed Optimization</p>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600 dark:text-gray-300">
+                <a href="index.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Home</a>
+                <a href="index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">SEO Audit</a>
+                <a href="index.html#seo-checker-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Advanced Checker</a>
+                <a href="index.html#top-tools" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Features</a>
+                <a href="index.html#competitor-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Why Us</a>
+                <a href="index.html#faq-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">FAQ</a>
+                <a href="blog/index.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Archive Blog</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="themeToggleBtn" aria-label="Toggle Dark/Light Theme" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <svg id="themeSvg" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+                    </svg>
+                </button>
+
+                <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu" class="md:hidden w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <svg id="menuSvg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-white/95 to-blue-50/60 dark:from-brand-darkCard/95 dark:to-slate-900/95 backdrop-blur-xl border-b border-gray-200/80 dark:border-brand-darkBorder px-4 pt-3 pb-4 space-y-2 text-sm font-semibold text-gray-700 dark:text-gray-200 shadow-xl shadow-blue-500/10">
+            <a href="index.html" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Home</a>
+            <a href="index.html#audit-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">SEO Audit</a>
+            <a href="index.html#seo-checker-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Advanced Checker</a>
+            <a href="index.html#top-tools" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Features</a>
+            <a href="index.html#competitor-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Why Us</a>
+            <a href="index.html#faq-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">FAQ</a>
+            <a href="blog/index.html" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Archive Blog</a>
+        </div>
+    </header>
 <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
   <section class="bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-700 text-white rounded-3xl p-7 sm:p-10 shadow-xl mb-8">
     <span class="text-xs font-bold uppercase tracking-wider bg-white/20 px-3 py-1.5 rounded-full">Performance Tool</span>
@@ -43,10 +86,110 @@
   </section>
 <section class="mt-8 p-5 rounded-2xl border border-blue-100 dark:border-slate-700 bg-blue-50/50 dark:bg-slate-900/40"><h2 class="text-lg font-extrabold text-gray-900 dark:text-white mb-3">Related SEO Resources</h2><p class="text-sm text-gray-600 dark:text-gray-300 mb-4">Use these related tools and authoritative references to continue your SEO and website performance work.</p><div class="flex flex-wrap gap-x-4 gap-y-2 text-sm"><a href="../index.html#audit-section" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">Website SEO Audit</a><a href="../index.html#seo-checker-section" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">On-Page SEO Checker</a><a href="../blog/index.html" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">SEO & Performance Blog</a><a href="https://developers.google.com/speed/docs/insights/v5/about" target="_blank" rel="noopener noreferrer" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">Google PageSpeed Insights</a><a href="https://web.dev/explore/learn-core-web-vitals" target="_blank" rel="noopener noreferrer" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">web.dev Core Web Vitals</a><a href="https://developer.mozilla.org/en-US/docs/Web/Performance/Guides" target="_blank" rel="noopener noreferrer" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">MDN Web Performance</a></div></section>
     </main>
+<footer class="relative bg-white dark:bg-brand-darkCard border-t border-gray-200/80 dark:border-brand-darkBorder text-gray-600 dark:text-gray-300 transition-colors duration-300">
+        <div class="h-1 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path d="M11 15H6l7-14v8h5l-7 14v-8z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="font-extrabold text-lg tracking-tight text-gray-900 dark:text-white">Fastseo</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/60 text-brand-500 dark:text-blue-300 ml-1.5">Reviewer</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm">
+                        Fastseo Website Reviewer is a free, real-time SEO audit and speed optimization suite. Powered by Google Lighthouse and Chrome User Experience (CrUX) data.
+                    </p>
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>API Services Operational</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Audit Features</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Core Web Vitals Audit</a></li>
+                        <li><a href="index.html#seo-checker-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">On-Page SEO Checker</a></li>
+                        <li><a href="index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">PageSpeed Performance</a></li>
+                        <li><a href="index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Mobile UX Test</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Quick Links</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="index.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Analyze Website</a></li>
+                        <li><a href="index.html#top-tools" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Features</a></li>
+                        <li><a href="index.html#faq-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">SEO FAQs</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Social & Share</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="https://github.com/gpldroid/rseo" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500 dark:hover:text-blue-400 transition">GitHub Project</a></li>
+                        <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fgpldroid.github.io%2Frseo%2F" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Share on Facebook</a></li>
+                        <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fgpldroid.github.io%2Frseo%2F" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Share on LinkedIn</a></li>
+                    </ul>
+                </div>
+
+
+
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Contact & Support</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="index.html#contact-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Contact Us</a></li>
+                        <li><a href="mailto:info@fastseo.site" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">info@fastseo.site</a></li>
+                        <li class="pt-2 text-[11px] text-gray-400">100% Free Unlimited Audits</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="border-t border-gray-200/80 dark:border-brand-darkBorder/60 py-3">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-medium">
+                <a href="privacy-policy.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Privacy Policy</a>
+                <a href="terms.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Terms</a>
+                <a href="gdpr.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">GDPR</a>
+                <a href="ccpa.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">CCPA</a>
+                <a href="dmca.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">DMCA</a>
+                <a href="eeat.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">E-E-A-T</a>
+                <a href="sitemap.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Sitemap</a>
+                <a href="blog/index.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Archives</a>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-slate-900/90 border-t border-gray-200/80 dark:border-brand-darkBorder/60 py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500 dark:text-gray-400">
+                <div class="flex items-center gap-1 font-medium text-center sm:text-left">
+                    <span>&copy; <span id="copyrightYear">2026</span> Fastseo Website Reviewer. All rights reserved.</span>
+                </div>
+
+                <div class="flex items-center gap-1.5 font-medium">
+                    <span>Designed & Developed with</span>
+                    <svg class="w-3.5 h-3.5 text-red-500 fill-current inline-block" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span>by</span>
+                    <a href="index.html#contact-section" class="font-bold text-gray-800 dark:text-gray-100 hover:text-brand-500 dark:hover:text-blue-400 underline decoration-brand-500/40 hover:decoration-brand-500 transition-all">Limrani Imad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 <script>
 const form=document.getElementById('auditForm'),status=document.getElementById('status'),results=document.getElementById('results');
 form.addEventListener('submit',async e=>{e.preventDefault();let u=document.getElementById('url').value.trim();status.textContent='Analyzing with Google PageSpeed Insights…';results.classList.add('hidden');try{const r=await fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+encodeURIComponent(u)+'&strategy=mobile');const d=await r.json();const a=d.lighthouseResult?.audits||{};const items=[['LCP',a['largest-contentful-paint']?.displayValue||'N/A'],['INP',a['interaction-to-next-paint']?.displayValue||'N/A'],['CLS',a['cumulative-layout-shift']?.displayValue||'N/A']];results.innerHTML=items.map(x=>`<div class="p-5 rounded-xl border border-gray-200 dark:border-gray-700"><div class="text-xs text-gray-500">${x[0]}</div><div class="text-2xl font-black mt-1">${x[1]}</div></div>`).join('');results.classList.remove('hidden');status.textContent='Audit completed.'}catch(err){status.textContent='The audit could not be completed. Please try again.'}});
 </script>
+
+<script src="../assets/js/script.js"></script>
 <script src="../assets/js/consent.js"></script>
 </body>
 </html>
