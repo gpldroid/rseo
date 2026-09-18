@@ -10,5 +10,3 @@ zone_name = "prftools.cloud"
 pattern = "www.prftools.cloud/api/*"
 zone_name = "prftools.cloud"
 
-[secrets]
-required = ["PAGESPEED_API_KEY"]
