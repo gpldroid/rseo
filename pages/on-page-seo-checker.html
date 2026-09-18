@@ -180,6 +180,6 @@
         </div>
     </footer>
 <script>f.addEventListener('submit',async e=>{e.preventDefault();st.textContent='Requesting page data…';out.classList.add('hidden');try{let r=await fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+encodeURIComponent(u.value)+'&strategy=mobile');let d=await r.json(),a=d.lighthouseResult?.audits||{};let rows=[['SEO score',Math.round((d.lighthouseResult?.categories?.seo?.score||0)*100)+'/100'],['Document title',a['document-title']?.displayValue||'Available'],['Meta description',a['meta-description']?.displayValue||'Available'],['Links',a['crawlable-anchors']?.displayValue||'Reviewed']];out.innerHTML=rows.map(x=>`<div class="p-5 rounded-xl border border-gray-200 dark:border-gray-700"><div class="text-xs text-gray-500">${x[0]}</div><div class="text-lg font-bold mt-1">${x[1]}</div></div>`).join('');out.classList.remove('hidden');st.textContent='On-page SEO review completed.'}catch(e){st.textContent='Unable to retrieve the page audit. Please try again.'}});</script>
-<script src="../assets/js/script.js"></script>
-<script src="../assets/js/consent.js"></script>
+<script defer src="../assets/js/script.js"></script>
+<script defer src="../assets/js/consent.js"></script>
 </body></html>
