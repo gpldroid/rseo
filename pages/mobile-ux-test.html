@@ -179,6 +179,6 @@
         </div>
     </footer>
 <script>f.addEventListener('submit',async e=>{e.preventDefault();st.textContent='Running mobile Lighthouse audit…';out.classList.add('hidden');try{let r=await fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+encodeURIComponent(u.value)+'&strategy=mobile');let d=await r.json(),lh=d.lighthouseResult||{},a=lh.audits||{},seo=Math.round((lh.categories?.performance?.score||0)*100);let rows=[['Performance',seo+'/100'],['Viewport',a['viewport']?.displayValue||'Reviewed'],['Tap targets',a['tap-targets']?.displayValue||'Reviewed'],['Font sizing',a['font-size']?.displayValue||'Reviewed'],['LCP',a['largest-contentful-paint']?.displayValue||'N/A'],['CLS',a['cumulative-layout-shift']?.displayValue||'N/A']];out.innerHTML=rows.map(x=>`<div class="p-5 rounded-xl border border-gray-200 dark:border-gray-700"><div class="text-xs text-gray-500">${x[0]}</div><div class="text-lg font-bold mt-1">${x[1]}</div></div>`).join('');out.classList.remove('hidden');st.textContent='Mobile UX test completed.'}catch(e){st.textContent='Unable to complete the mobile test. Please try again.'}});</script>
-<script src="../assets/js/script.js"></script>
-<script src="../assets/js/consent.js"></script>
+<script defer src="../assets/js/script.js"></script>
+<script defer src="../assets/js/consent.js"></script>
 </body></html>
