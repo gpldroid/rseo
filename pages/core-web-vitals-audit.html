@@ -226,7 +226,7 @@ const form=document.getElementById('auditForm'),status=document.getElementById('
 form.addEventListener('submit',async e=>{e.preventDefault();let u=document.getElementById('url').value.trim();status.textContent='Analyzing with Google PageSpeed Insights…';results.classList.add('hidden');try{const r=await fetch('https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url='+encodeURIComponent(u)+'&strategy=mobile');const d=await r.json();const a=d.lighthouseResult?.audits||{};const items=[['LCP',a['largest-contentful-paint']?.displayValue||'N/A'],['INP',a['interaction-to-next-paint']?.displayValue||'N/A'],['CLS',a['cumulative-layout-shift']?.displayValue||'N/A']];results.innerHTML=items.map(x=>`<div class="p-5 rounded-xl border border-gray-200 dark:border-gray-700"><div class="text-xs text-gray-500">${x[0]}</div><div class="text-2xl font-black mt-1">${x[1]}</div></div>`).join('');results.classList.remove('hidden');status.textContent='Audit completed.'}catch(err){status.textContent='The audit could not be completed. Please try again.'}});
 </script>
 
-<script src="../assets/js/script.js"></script>
-<script src="../assets/js/consent.js"></script>
+<script defer src="../assets/js/script.js"></script>
+<script defer src="../assets/js/consent.js"></script>
 </body>
 </html>
