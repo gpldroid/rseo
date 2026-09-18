@@ -1,14 +1,248 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>Core Web Vitals Audit: Complete Guide to LCP, INP and CLS</title><meta name="description" content="A practical Core Web Vitals audit guide covering LCP, INP, CLS, field data, Lighthouse diagnostics and an actionable optimization workflow."><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="https://fastseo.site/blog/core-web-vitals-audit.html"><link rel="stylesheet" href="style.css"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Core Web Vitals Audit: Complete Guide to LCP, INP and CLS","description":"A practical Core Web Vitals audit guide covering LCP, INP, CLS, field data, Lighthouse diagnostics and an actionable optimization workflow.","author":{"@type":"Person","name":"IMAD LIMRANI"},"publisher":{"@type":"Organization","name":"Fastseo Website Reviewer"},"mainEntityOfPage":"https://fastseo.site/blog/core-web-vitals-audit.html"}</script></head><body><div class="top"></div><header><div class="nav"><a class="logo" href="index.html">Fast<span>seo</span> Blog</a><nav class="navlinks"><a href="index.html">Blog</a><a href="../index.html">Website Reviewer</a><a href="core-web-vitals-audit.html">Core Web Vitals</a><a href="pagespeed-performance.html">PageSpeed</a></nav></div></header><main class="wrap"><article class="article"><div class="eyebrow">Performance Audit</div><h1>Core Web Vitals Audit: A Complete Guide to LCP, INP and CLS</h1><div class="meta">By IMAD LIMRANI · Updated September 2026 · 10 min read</div>
-<p>Core Web Vitals are a set of user-centered metrics used to evaluate important aspects of page experience: loading, responsiveness and visual stability. A serious audit should not stop at a single Lighthouse score. It should combine real-user field data, controlled lab testing and technical diagnostics so that you can identify the cause of a problem rather than simply observe a number.</p>
-<div class="note"><strong>Current Core Web Vitals:</strong> Largest Contentful Paint (LCP) measures loading performance, Interaction to Next Paint (INP) measures responsiveness, and Cumulative Layout Shift (CLS) measures visual stability. INP replaced FID as a Core Web Vital.</div>
-<h2>What a Core Web Vitals audit should answer</h2><p>A useful audit answers four questions: Are real users experiencing a problem? Which pages or templates are affected? What technical component is creating the problem? What change should be implemented and how will it be verified?</p>
-<h2>1. LCP — Largest Contentful Paint</h2><p>LCP measures when the largest relevant content element in the viewport becomes rendered. Common LCP elements include a hero image, large heading, poster image or prominent text block. A good target is <strong>2.5 seconds or less</strong> at the 75th percentile. When LCP is slow, investigate server response time, resource discovery, image delivery, render-blocking CSS and client-side rendering.</p>
-<h3>Practical LCP checklist</h3><ul><li>Improve HTML document response time and backend processing.</li><li>Preload the actual LCP image when appropriate and avoid lazy-loading the LCP resource.</li><li>Serve responsive images in modern formats such as WebP or AVIF when supported by your delivery pipeline.</li><li>Reduce render-blocking CSS and unnecessary third-party resources.</li><li>Make critical content discoverable in the initial HTML instead of waiting for JavaScript.</li></ul>
-<h2>2. INP — Interaction to Next Paint</h2><p>INP measures how responsive a page is to user interactions throughout the visit. A good target is <strong>200 milliseconds or less</strong> at the 75th percentile. High INP is often related to long JavaScript tasks, excessive event-handler work, expensive rendering or too much main-thread activity.</p><h3>How to improve INP</h3><ul><li>Break long JavaScript tasks into smaller units.</li><li>Remove unnecessary JavaScript and reduce the amount of work executed after interaction.</li><li>Defer non-critical scripts and third-party code.</li><li>Keep event handlers lightweight and avoid unnecessary synchronous layout work.</li><li>Profile slow interactions in Chrome DevTools Performance.</li></ul>
-<h2>3. CLS — Cumulative Layout Shift</h2><p>CLS measures unexpected visual movement. A good target is <strong>0.1 or less</strong>. Layout shifts commonly occur when images or embeds have no reserved dimensions, fonts change layout after rendering, or dynamic components insert content above existing content.</p><h3>CLS checklist</h3><ul><li>Declare width and height or an appropriate aspect ratio for images and video.</li><li>Reserve space for ads, embeds and dynamic modules.</li><li>Avoid inserting content above already-rendered content unless it is triggered by user interaction.</li><li>Manage web fonts to reduce layout instability.</li><li>Use browser tooling and field data to locate the actual shifting elements.</li></ul>
-<h2>Field data vs. Lighthouse lab data</h2><p>Field data describes what real users experienced over an eligible collection period, while lab data is a controlled test performed under simulated conditions. They answer different questions. Field data is valuable for measuring user experience at scale; lab testing is valuable for reproducing problems and diagnosing their causes.</p>
-<div class="table-wrap"><table><thead><tr><th>Metric</th><th>What it measures</th><th>Good target</th><th>Typical causes of poor results</th></tr></thead><tbody><tr><td>LCP</td><td>Loading of the largest visible content</td><td>≤ 2.5s</td><td>Slow server, late resource discovery, large images, render blocking</td></tr><tr><td>INP</td><td>Responsiveness to user interaction</td><td>≤ 200ms</td><td>Long tasks, excessive JavaScript, expensive rendering</td></tr><tr><td>CLS</td><td>Unexpected visual movement</td><td>≤ 0.1</td><td>Unreserved media, injected content, font/layout changes</td></tr></tbody></table></div>
-<h2>A repeatable audit workflow</h2><ol><li>Identify important page templates rather than testing only the homepage.</li><li>Check available field data for the affected URLs or origin.</li><li>Run mobile and desktop lab tests to reproduce the issue.</li><li>Map the failing metric to concrete Lighthouse audits and browser traces.</li><li>Prioritize changes by user impact, implementation cost and affected traffic.</li><li>Deploy one logical group of fixes at a time and retest.</li><li>Monitor field data after deployment instead of assuming a lab improvement equals a real-user improvement.</li></ol>
-<h2>What not to do</h2><p>Do not chase a perfect Lighthouse score at the expense of useful functionality. Do not treat a single test run as a permanent measurement, and do not assume that improving one lab metric automatically fixes field Core Web Vitals. Performance is a continuous engineering process.</p>
-<div class="cta"><strong>Run an audit:</strong> Use the <a href="../index.html">Fastseo Website Reviewer</a> to inspect PageSpeed and Lighthouse performance data, then use the diagnostics in this guide to plan the technical fixes.</div>
-<div class="sources"><strong>References:</strong><br><a href="https://developers.google.com/search/docs/appearance/page-experience" target="_blank" rel="noopener">Google Search Central — Page Experience</a><br><a href="https://web.dev/articles/vitals" target="_blank" rel="noopener">web.dev — Web Vitals</a><br><a href="https://web.dev/articles/inp" target="_blank" rel="noopener">web.dev — INP</a></div></article></main><footer>© 2026 Fastseo Website Reviewer · Practical guides for SEO, performance and user experience.</footer></body></html>
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Web Vitals Audit: Complete Guide to LCP, INP and CLS</title>
+<meta name="description" content="A practical Core Web Vitals audit guide covering LCP, INP, CLS, field data, Lighthouse diagnostics and an actionable optimization workflow.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://fastseo.site/blog/core-web-vitals-audit.html">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+    darkMode: 'class',
+    theme: {
+        extend: {
+            colors: {
+                brand: {
+                    50: '#f0f7ff',
+                    100: '#e0effe',
+                    500: '#1a73e8',
+                    600: '#1557b0',
+                    700: '#104491',
+                    darkBg: '#0f172a',
+                    darkCard: '#1e293b',
+                    darkBorder: '#334155'
+                }
+            },
+            fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+    }
+}
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Core Web Vitals Audit: Complete Guide to LCP, INP and CLS","description":"A practical Core Web Vitals audit guide covering LCP, INP, CLS, field data, Lighthouse diagnostics and an actionable optimization workflow.","author":{"@type":"Person","name":"IMAD LIMRANI"},"publisher":{"@type":"Organization","name":"Fastseo Website Reviewer"},"mainEntityOfPage":"https://fastseo.site/blog/core-web-vitals-audit.html"}</script></head><body class="bg-gray-50 dark:bg-brand-darkBg text-slate-800 dark:text-slate-100 min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white no-copy">
+<header class="bg-white/90 dark:bg-brand-darkCard/90 backdrop-blur-md border-b border-gray-200/80 dark:border-brand-darkBorder sticky top-0 z-50 shadow-lg shadow-blue-500/10 dark:shadow-indigo-500/10">
+        <div class="h-1 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold">
+                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M11 15H6l7-14v8h5l-7 14v-8z"/>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-lg leading-tight flex items-center gap-2 tracking-tight">
+                        <span>Fastseo</span>
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/60 text-brand-500 dark:text-blue-300">Website Reviewer</span>
+                    </h1>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Free Tools for SEO & Speed Optimization</p>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-gray-600 dark:text-gray-300">
+                <a href="../index.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Home</a>
+                <a href="../index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">SEO Audit</a>
+                <a href="../index.html#seo-checker-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Advanced Checker</a>
+                <a href="../index.html#top-tools" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Features</a>
+                <a href="../index.html#competitor-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Why Us</a>
+                <a href="../index.html#faq-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">FAQ</a>
+                <div class="relative">
+    <button type="button" id="blogMenuBtn" aria-expanded="false" aria-controls="blogMenu" class="hover:text-brand-500 dark:hover:text-blue-400 transition inline-flex items-center gap-1 font-inherit">
+        <span>Blog</span>
+        <svg id="blogMenuIcon" class="w-3.5 h-3.5 fill-current transition-transform" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
+    </button>
+    <div id="blogMenu" class="absolute right-0 top-full pt-3 hidden z-50">
+        <div class="w-72 rounded-2xl bg-white dark:bg-brand-darkCard border border-gray-200 dark:border-brand-darkBorder shadow-xl p-2">
+            <a href="../blog/index.html" class="block rounded-xl px-4 py-3 hover:bg-blue-50 dark:hover:bg-slate-800 transition">
+                <span class="block text-sm font-bold text-gray-800 dark:text-white">SEO & Performance Blog</span>
+                <span class="block text-xs text-gray-500 dark:text-gray-400 mt-0.5">All guides and articles</span>
+            </a>
+            <a href="../blog/core-web-vitals-audit.html" class="block rounded-xl px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-slate-800 transition text-sm">Core Web Vitals Audit</a>
+            <a href="../blog/on-page-seo-checker.html" class="block rounded-xl px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-slate-800 transition text-sm">On-Page SEO Checker</a>
+            <a href="../blog/pagespeed-performance.html" class="block rounded-xl px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-slate-800 transition text-sm">PageSpeed Performance</a>
+            <a href="../blog/mobile-ux-test.html" class="block rounded-xl px-4 py-2.5 hover:bg-blue-50 dark:hover:bg-slate-800 transition text-sm">Mobile UX Test</a>
+        </div>
+    </div>
+</div>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="themeToggleBtn" aria-label="Toggle Dark/Light Theme" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <svg id="themeSvg" class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/>
+                    </svg>
+                </button>
+
+                <button id="mobileMenuBtn" aria-label="Toggle Navigation Menu" class="md:hidden w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                    <svg id="menuSvg" class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden bg-gradient-to-b from-white/95 to-blue-50/60 dark:from-brand-darkCard/95 dark:to-slate-900/95 backdrop-blur-xl border-b border-gray-200/80 dark:border-brand-darkBorder px-4 pt-3 pb-4 space-y-2 text-sm font-semibold text-gray-700 dark:text-gray-200 shadow-xl shadow-blue-500/10">
+            <a href="../index.html" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Home</a>
+            <a href="../index.html#audit-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">SEO Audit</a>
+            <a href="../index.html#seo-checker-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Advanced Checker</a>
+            <a href="../index.html#top-tools" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Features</a>
+            <a href="../index.html#competitor-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Why Us</a>
+            <a href="../index.html#faq-section" class="block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">FAQ</a>
+            <div class="pt-1">
+    <button type="button" id="mobileBlogMenuBtn" aria-expanded="false" aria-controls="mobileBlogMenu" class="w-full text-left block py-2.5 px-3 rounded-xl hover:bg-gradient-to-r hover:from-blue-600 hover:to-indigo-600 hover:text-white transition-all duration-200 shadow-sm">Blog</button>
+    <div id="mobileBlogMenu" class="hidden mt-1 ml-3 pl-3 border-l-2 border-blue-100 dark:border-slate-700 space-y-1">
+        <a href="../blog/index.html" class="block py-2 px-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition font-semibold">All Blog Articles</a>
+        <a href="../blog/core-web-vitals-audit.html" class="block py-2 px-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition">Core Web Vitals Audit</a>
+        <a href="../blog/on-page-seo-checker.html" class="block py-2 px-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition">On-Page SEO Checker</a>
+        <a href="../blog/pagespeed-performance.html" class="block py-2 px-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition">PageSpeed Performance</a>
+        <a href="../blog/mobile-ux-test.html" class="block py-2 px-3 rounded-lg hover:bg-blue-50 dark:hover:bg-slate-800 transition">Mobile UX Test</a>
+    </div>
+</div>
+        </div>
+    </header>
+<main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1">
+<article class="bg-white dark:bg-brand-darkCard rounded-2xl shadow-sm border border-gray-200 dark:border-brand-darkBorder p-5 sm:p-8 lg:p-10 transition-all"><div class="text-xs font-bold uppercase tracking-wider text-brand-500 dark:text-blue-400 mb-2">Performance Audit</div><h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-gray-900 dark:text-white">Core Web Vitals Audit: A Complete Guide to LCP, INP and CLS</h1><div class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-3 mb-8">By IMAD LIMRANI · Updated September 2026 · 10 min read</div>
+<p class="text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-5">Core Web Vitals are a set of user-centered metrics used to evaluate important aspects of page experience: loading, responsiveness and visual stability. A serious audit should not stop at a single Lighthouse score. It should combine real-user field data, controlled lab testing and technical diagnostics so that you can identify the cause of a problem rather than simply observe a number.</p>
+<div class="my-6 p-4 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50 dark:bg-blue-950/30 text-sm leading-6 text-gray-700 dark:text-gray-300"><strong>Current Core Web Vitals:</strong> Largest Contentful Paint (LCP) measures loading performance, Interaction to Next Paint (INP) measures responsiveness, and Cumulative Layout Shift (CLS) measures visual stability. INP replaced FID as a Core Web Vital.</div>
+<h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mt-10 mb-4">What a Core Web Vitals audit should answer</h2><p class="text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-5">A useful audit answers four questions: Are real users experiencing a problem? Which pages or templates are affected? What technical component is creating the problem? What change should be implemented and how will it be verified?</p>
+<h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mt-10 mb-4">1. LCP — Largest Contentful Paint</h2><p class="text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-5">LCP measures when the largest relevant content element in the viewport becomes rendered. Common LCP elements include a hero image, large heading, poster image or prominent text block. A good target is <strong>2.5 seconds or less</strong> at the 75th percentile. When LCP is slow, investigate server response time, resource discovery, image delivery, render-blocking CSS and client-side rendering.</p>
+<h3 class="text-lg font-bold text-gray-900 dark:text-white mt-7 mb-3">Practical LCP checklist</h3><ul class="list-disc pl-6 space-y-2 text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-6"><li class="pl-1">Improve HTML document response time and backend processing.</li><li class="pl-1">Preload the actual LCP image when appropriate and avoid lazy-loading the LCP resource.</li><li class="pl-1">Serve responsive images in modern formats such as WebP or AVIF when supported by your delivery pipeline.</li><li class="pl-1">Reduce render-blocking CSS and unnecessary third-party resources.</li><li class="pl-1">Make critical content discoverable in the initial HTML instead of waiting for JavaScript.</li></ul>
+<h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mt-10 mb-4">2. INP — Interaction to Next Paint</h2><p class="text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-5">INP measures how responsive a page is to user interactions throughout the visit. A good target is <strong>200 milliseconds or less</strong> at the 75th percentile. High INP is often related to long JavaScript tasks, excessive event-handler work, expensive rendering or too much main-thread activity.</p><h3 class="text-lg font-bold text-gray-900 dark:text-white mt-7 mb-3">How to improve INP</h3><ul class="list-disc pl-6 space-y-2 text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-6"><li class="pl-1">Break long JavaScript tasks into smaller units.</li><li class="pl-1">Remove unnecessary JavaScript and reduce the amount of work executed after interaction.</li><li class="pl-1">Defer non-critical scripts and third-party code.</li><li class="pl-1">Keep event handlers lightweight and avoid unnecessary synchronous layout work.</li><li class="pl-1">Profile slow interactions in Chrome DevTools Performance.</li></ul>
+<h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mt-10 mb-4">3. CLS — Cumulative Layout Shift</h2><p class="text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-5">CLS measures unexpected visual movement. A good target is <strong>0.1 or less</strong>. Layout shifts commonly occur when images or embeds have no reserved dimensions, fonts change layout after rendering, or dynamic components insert content above existing content.</p><h3 class="text-lg font-bold text-gray-900 dark:text-white mt-7 mb-3">CLS checklist</h3><ul class="list-disc pl-6 space-y-2 text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-6"><li class="pl-1">Declare width and height or an appropriate aspect ratio for images and video.</li><li class="pl-1">Reserve space for ads, embeds and dynamic modules.</li><li class="pl-1">Avoid inserting content above already-rendered content unless it is triggered by user interaction.</li><li class="pl-1">Manage web fonts to reduce layout instability.</li><li class="pl-1">Use browser tooling and field data to locate the actual shifting elements.</li></ul>
+<h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mt-10 mb-4">Field data vs. Lighthouse lab data</h2><p class="text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-5">Field data describes what real users experienced over an eligible collection period, while lab data is a controlled test performed under simulated conditions. They answer different questions. Field data is valuable for measuring user experience at scale; lab testing is valuable for reproducing problems and diagnosing their causes.</p>
+<div class="overflow-x-auto my-6 rounded-xl border border-gray-200 dark:border-brand-darkBorder"><table class="w-full min-w-[640px] text-sm text-left"><thead class="bg-gray-50 dark:bg-slate-900"><tr><th class="px-4 py-3 font-bold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-brand-darkBorder">Metric</th><th class="px-4 py-3 font-bold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-brand-darkBorder">What it measures</th><th class="px-4 py-3 font-bold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-brand-darkBorder">Good target</th><th class="px-4 py-3 font-bold text-gray-800 dark:text-gray-200 border-b border-gray-200 dark:border-brand-darkBorder">Typical causes of poor results</th></tr></thead><tbody><tr><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">LCP</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">Loading of the largest visible content</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">≤ 2.5s</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">Slow server, late resource discovery, large images, render blocking</td></tr><tr><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">INP</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">Responsiveness to user interaction</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">≤ 200ms</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">Long tasks, excessive JavaScript, expensive rendering</td></tr><tr><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">CLS</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">Unexpected visual movement</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">≤ 0.1</td><td class="px-4 py-3 text-gray-600 dark:text-gray-300 border-b border-gray-100 dark:border-slate-800">Unreserved media, injected content, font/layout changes</td></tr></tbody></table></div>
+<h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mt-10 mb-4">A repeatable audit workflow</h2><ol class="list-decimal pl-6 space-y-2 text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-6"><li class="pl-1">Identify important page templates rather than testing only the homepage.</li><li class="pl-1">Check available field data for the affected URLs or origin.</li><li class="pl-1">Run mobile and desktop lab tests to reproduce the issue.</li><li class="pl-1">Map the failing metric to concrete Lighthouse audits and browser traces.</li><li class="pl-1">Prioritize changes by user impact, implementation cost and affected traffic.</li><li class="pl-1">Deploy one logical group of fixes at a time and retest.</li><li class="pl-1">Monitor field data after deployment instead of assuming a lab improvement equals a real-user improvement.</li></ol>
+<h2 class="text-xl sm:text-2xl font-extrabold text-gray-900 dark:text-white mt-10 mb-4">What not to do</h2><p class="text-sm sm:text-base leading-7 text-gray-600 dark:text-gray-300 mb-5">Do not chase a perfect Lighthouse score at the expense of useful functionality. Do not treat a single test run as a permanent measurement, and do not assume that improving one lab metric automatically fixes field Core Web Vitals. Performance is a continuous engineering process.</p>
+<div class="my-8 p-5 rounded-xl bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-900 border border-blue-100 dark:border-slate-700 text-sm leading-6 text-gray-700 dark:text-gray-300"><strong>Run an audit:</strong> Use the <a class="text-brand-500 dark:text-blue-400 hover:underline" href="../index.html">Fastseo Website Reviewer</a> to inspect PageSpeed and Lighthouse performance data, then use the diagnostics in this guide to plan the technical fixes.</div>
+<div class="mt-10 pt-6 border-t border-gray-200 dark:border-brand-darkBorder text-xs sm:text-sm leading-6 text-gray-500 dark:text-gray-400"><strong>References:</strong><br><a class="text-brand-500 dark:text-blue-400 hover:underline" href="https://developers.google.com/search/docs/appearance/page-experience" target="_blank" rel="noopener">Google Search Central — Page Experience</a><br><a class="text-brand-500 dark:text-blue-400 hover:underline" href="https://web.dev/articles/vitals" target="_blank" rel="noopener">web.dev — Web Vitals</a><br><a class="text-brand-500 dark:text-blue-400 hover:underline" href="https://web.dev/articles/inp" target="_blank" rel="noopener">web.dev — INP</a></div></article>
+</main>
+<footer class="relative bg-white dark:bg-brand-darkCard border-t border-gray-200/80 dark:border-brand-darkBorder text-gray-600 dark:text-gray-300 transition-colors duration-300">
+        <div class="h-1 w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-blue-500"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20 font-bold">
+                            <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+                                <path d="M11 15H6l7-14v8h5l-7 14v-8z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <span class="font-extrabold text-lg tracking-tight text-gray-900 dark:text-white">Fastseo</span>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/60 text-brand-500 dark:text-blue-300 ml-1.5">Reviewer</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-gray-400 leading-relaxed max-w-sm">
+                        Fastseo Website Reviewer is a free, real-time SEO audit and speed optimization suite. Powered by Google Lighthouse and Chrome User Experience (CrUX) data.
+                    </p>
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-[11px] font-semibold text-emerald-700 dark:text-emerald-300">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>API Services Operational</span>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Audit Features</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="../index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Core Web Vitals Audit</a></li>
+                        <li><a href="../index.html#seo-checker-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">On-Page SEO Checker</a></li>
+                        <li><a href="../index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">PageSpeed Performance</a></li>
+                        <li><a href="../index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Mobile UX Test</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Quick Links</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Home</a></li>
+                        <li><a href="../index.html#audit-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Analyze Website</a></li>
+                        <li><a href="../index.html#top-tools" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Features</a></li>
+                        <li><a href="../index.html#faq-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">SEO FAQs</a></li>
+                    </ul>
+                </div>
+
+                <div class="space-y-3">
+                    <h3 class="text-xs font-bold uppercase tracking-wider text-gray-900 dark:text-white">Contact & Support</h3>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="../index.html#contact-section" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Contact Us</a></li>
+                        <li><a href="mailto:info@fastseo.site" class="text-brand-500 dark:text-blue-400 font-semibold hover:underline">info@fastseo.site</a></li>
+                        <li class="pt-2 text-[11px] text-gray-400">100% Free Unlimited Audits</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="border-t border-gray-200/80 dark:border-brand-darkBorder/60 py-3">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-[11px] font-medium">
+                <a href="../privacy-policy.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Privacy Policy</a>
+                <a href="../terms.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Terms</a>
+                <a href="../gdpr.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">GDPR</a>
+                <a href="../ccpa.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">CCPA</a>
+                <a href="../dmca.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">DMCA</a>
+                <a href="../eeat.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">E-E-A-T</a>
+                <a href="../sitemap.html" class="hover:text-brand-500 dark:hover:text-blue-400 transition">Sitemap</a>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 dark:bg-slate-900/90 border-t border-gray-200/80 dark:border-brand-darkBorder/60 py-4">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-gray-500 dark:text-gray-400">
+                <div class="flex items-center gap-1 font-medium text-center sm:text-left">
+                    <span>&copy; <span id="copyrightYear">2026</span> Fastseo Website Reviewer. All rights reserved.</span>
+                </div>
+
+                <div class="flex items-center gap-1.5 font-medium">
+                    <span>Designed & Developed with</span>
+                    <svg class="w-3.5 h-3.5 text-red-500 fill-current inline-block" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                    <span>by</span>
+                    <a href="../index.html#contact-section" class="font-bold text-gray-800 dark:text-gray-100 hover:text-brand-500 dark:hover:text-blue-400 underline decoration-brand-500/40 hover:decoration-brand-500 transition-all">Limrani Imad</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script>
+        const blogMenuBtn = document.getElementById('blogMenuBtn');
+        const blogMenu = document.getElementById('blogMenu');
+        const blogMenuIcon = document.getElementById('blogMenuIcon');
+        const mobileBlogMenuBtn = document.getElementById('mobileBlogMenuBtn');
+        const mobileBlogMenu = document.getElementById('mobileBlogMenu');
+
+        blogMenuBtn?.addEventListener('click', (event) => {
+            event.stopPropagation();
+            const isOpen = !blogMenu.classList.contains('hidden');
+            blogMenu.classList.toggle('hidden', isOpen);
+            blogMenuBtn.setAttribute('aria-expanded', String(!isOpen));
+            blogMenuIcon?.classList.toggle('rotate-180', !isOpen);
+        });
+
+        document.addEventListener('click', (event) => {
+            if (blogMenuBtn && blogMenu && !blogMenu.contains(event.target) && !blogMenuBtn.contains(event.target)) {
+                blogMenu.classList.add('hidden');
+                blogMenuBtn.setAttribute('aria-expanded', 'false');
+                blogMenuIcon?.classList.remove('rotate-180');
+            }
+        });
+
+        mobileBlogMenuBtn?.addEventListener('click', () => {
+            const isOpen = !mobileBlogMenu.classList.contains('hidden');
+            mobileBlogMenu.classList.toggle('hidden', isOpen);
+            mobileBlogMenuBtn.setAttribute('aria-expanded', String(!isOpen));
+        });
+    </script>
+<script src="../assets/js/script.js"></script>
+</body></html>
