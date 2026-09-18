@@ -135,7 +135,7 @@ No Node.js build step is required for the static front end.
 
 ## 🔐 API & Privacy Notes
 
-The application uses the Google PageSpeed Insights API to obtain website audit information. API availability, quotas, and Google service responses may affect the availability or completeness of results.
+The application uses a server-side proxy to call the Google PageSpeed Insights API. The Google API key is stored as a GitHub Actions secret and deployed to the Cloudflare Worker as a Worker secret; it is not included in the public JavaScript bundle. API availability, quotas, and Google service responses may affect the availability or completeness of results.
 
 Audit results can vary according to the tested website, device strategy, network conditions, Lighthouse version, and availability of field data.
 
