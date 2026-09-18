@@ -26,12 +26,12 @@ body {
         }
 
         .status-good { color: #047857; background-color: #ecfdf5; border-color: #a7f3d0; }
-        .status-average { color: #b45309; background-color: #fffbeb; border-color: #fde68a; }
-        .status-poor { color: #b91c1c; background-color: #fef2f2; border-color: #fecaca; }
+        .status-average { color: #92400e; background-color: #fffbeb; border-color: #fde68a; }
+        .status-poor { color: #991b1b; background-color: #fef2f2; border-color: #fecaca; }
 
         .dark .status-good { color: #34d399; background-color: #064e3b; border-color: #047857; }
-        .dark .status-average { color: #fbbf24; background-color: #451a03; border-color: #b45309; }
-        .dark .status-poor { color: #f87171; background-color: #451211; border-color: #991b1b; }
+        .dark .status-average { color: #fcd34d; background-color: #451a03; border-color: #b45309; }
+        .dark .status-poor { color: #fca5a5; background-color: #451211; border-color: #991b1b; }
 
         .social-shadow-github { box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
         .social-shadow-facebook { box-shadow: 0 10px 25px -5px rgba(24, 119, 242, 0.3), 0 8px 10px -6px rgba(24, 119, 242, 0.2); }
