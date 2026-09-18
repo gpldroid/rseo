@@ -83,7 +83,7 @@
                 <p class="text-xs text-gray-500 dark:text-gray-400">Test any URL for Core Web Vitals, mobile speed, and performance bottlenecks.</p>
             </div>
 
-            <form id="analyzeForm" class="space-y-4">
+            <form id="analyzeForm" class="space-y-4" toolname="analyzeWebsite" tooldescription="Analyze a website URL with Google PageSpeed and return performance and Core Web Vitals results.">
                 <div class="flex flex-col md:flex-row gap-3">
                     <div class="relative flex-1">
                         <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
@@ -91,11 +91,11 @@
                                 <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                             </svg>
                         </div>
-                        <input type="url" id="urlInput" required placeholder="https://example.com" value="https://google.com"
+                        <input type="url" id="urlInput" name="url" toolparamdescription="The full HTTP or HTTPS URL of the website to analyze." required placeholder="https://example.com" value="https://google.com"
                             class="w-full pl-10 pr-4 py-3.5 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl text-sm font-medium focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                     </div>
                     <div class="flex gap-2">
-                        <select id="strategySelect" class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm font-semibold rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-brand-500 outline-none transition-all">
+                        <select id="strategySelect" name="strategy" toolparamdescription="Choose the Lighthouse analysis strategy: mobile or desktop." class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-sm font-semibold rounded-xl px-4 py-3.5 focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                             <option value="mobile">Mobile Strategy</option>
                             <option value="desktop">Desktop Strategy</option>
                         </select>
