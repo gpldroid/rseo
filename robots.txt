@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fastseo.site/sitemap.xml
+Sitemap: https://prftools.cloud/sitemap.xml
