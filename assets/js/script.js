@@ -38,7 +38,7 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const themeSvg = document.getElementById('themeSvg');
         const runDeepAuditBtn = document.getElementById('runDeepAuditBtn');
 
-        const API_ENDPOINT = '/api/pagespeed';
+        const API_ENDPOINT = 'https://prftools-pagespeed-api.fastseo.workers.dev';
         let currentStrategy = 'mobile';
         let isDarkMode = false;
 
