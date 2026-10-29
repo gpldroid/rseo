@@ -1,3 +1,11 @@
+// Normalize homepage links across pages so navigation uses the canonical root URL.
+document.querySelectorAll('a[href]').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (/^(\.\/)?index\.html(?:#.*)?$/.test(href)) {
+        link.setAttribute('href', href.includes('#') ? '/#' + href.split('#').slice(1).join('#') : '/');
+    }
+});
+
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const menuSvg = document.getElementById('menuSvg');
