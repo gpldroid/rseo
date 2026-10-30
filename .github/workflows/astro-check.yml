@@ -1,0 +1,40 @@
+name: Astro migration scaffold checks
+
+on:
+  pull_request:
+    paths:
+      - "astro/**"
+      - ".github/workflows/astro-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: astro-check-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: astro
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Type and Astro checks
+        run: npm run check
+
+      - name: Build static site
+        run: npm run build

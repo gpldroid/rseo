@@ -1,0 +1,64 @@
+---
+import GoogleScripts from "@components/GoogleScripts.astro";
+import "@styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalPath?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalPath = Astro.url.pathname,
+  noindex = false
+} = Astro.props;
+
+const canonicalUrl = new URL(canonicalPath, "https://prftools.cloud").toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="google-site-verification" content="xIzecBGFMvzFrPQJx0J89CzIvqbDsrwfaI8llgUkisE" />
+    <meta name="google-adsense-account" content="ca-pub-6996931662051674" />
+    <meta name="author" content="IMAD LIMRANI" />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow, max-image-preview:large"} />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <title>{title}</title>
+    <GoogleScripts />
+  </head>
+  <body>
+    <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2" href="#main-content">Skip to content</a>
+    <header class="border-b border-slate-200 bg-white">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4" aria-label="Main navigation">
+        <a class="text-xl font-bold tracking-tight text-slate-950" href="/">Fastseo</a>
+        <div class="flex items-center gap-5 text-sm font-medium text-slate-700">
+          <a href="/#tools" class="hover:text-blue-700">Tools</a>
+          <a href="/blog/" class="hover:text-blue-700">Blog</a>
+          <a href="/about.html" class="hover:text-blue-700">About</a>
+        </div>
+      </nav>
+    </header>
+    <main id="main-content">
+      <slot />
+    </main>
+    <footer class="mt-20 border-t border-slate-200 bg-white">
+      <div class="mx-auto flex max-w-6xl flex-wrap gap-5 px-5 py-8 text-sm text-slate-600">
+        <a href="/privacy-policy.html">Privacy</a>
+        <a href="/terms.html">Terms</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+    </footer>
+  </body>
+</html>

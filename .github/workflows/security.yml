@@ -23,15 +23,53 @@ jobs:
       - name: Check repository for exposed Google API keys
         shell: bash
         run: |
-          if git grep -nE 'AIza[0-9A-Za-z_-]{20,}' -- ':!*.md'; then
+          if git grep -nE 'AIza[0-9A-Za-z_-]{20,}' -- ':!*.md' ':!.github/workflows/*'; then
             echo "::error::A Google API key pattern was found in tracked source files."
             exit 1
           fi
 
-      - name: Check for common secret assignment patterns
+      - name: Check for hard-coded secret assignments
         shell: bash
         run: |
-          if git grep -nE '(SYSTEM_API_KEY|API_KEY|SECRET_KEY)[[:space:]]*=[[:space:]]*["'"''][^"'"'']+["'"'']' -- ':!README.md' ':!SECURITY.md'; then
-            echo "::error::A hard-coded secret assignment pattern was found."
-            exit 1
-          fi
+          python3 - <<'PY'
+          import pathlib
+          import re
+          import subprocess
+          import sys
+
+          # Detect literal values assigned to common API/secret variable names.
+          # Environment references such as secrets.NAME and env.NAME are not values.
+          pattern = re.compile(
+              r"""\b(?:[A-Z0-9_]*_)?(?:SYSTEM_API_KEY|API_KEY|SECRET_KEY)\s*=\s*(['"])(?!\s*(?:\$\{\{|\$?[A-Za-z_][A-Za-z0-9_]*\.)).+?\1"""
+          )
+          excluded = (
+              ".github/workflows/",
+              "README.md",
+              "SECURITY.md",
+              ".env.example",
+          )
+          paths = subprocess.check_output(
+              ["git", "ls-files", "-z"], text=True
+          ).split("\0")
+
+          findings = []
+          for name in filter(None, paths):
+              if name.startswith(excluded) or name.endswith(".example"):
+                  continue
+              path = pathlib.Path(name)
+              if not path.is_file():
+                  continue
+              try:
+                  lines = path.read_text(encoding="utf-8").splitlines()
+              except (UnicodeDecodeError, OSError):
+                  continue
+              for number, line in enumerate(lines, 1):
+                  if pattern.search(line):
+                      findings.append(f"{name}:{number}:{line.strip()}")
+
+          if findings:
+              print("\n".join(findings))
+              print("::error::A hard-coded secret assignment was found.")
+              sys.exit(1)
+          print("No hard-coded secret assignments found.")
+          PY

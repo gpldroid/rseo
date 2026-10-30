@@ -1,0 +1,67 @@
+---
+interface Props {
+  slot: string;
+  format?: "fluid" | "auto";
+  layout?: "in-article" | "display";
+  class?: string;
+  minHeight?: number;
+}
+
+const {
+  slot,
+  format = "fluid",
+  layout = "in-article",
+  class: className = "",
+  minHeight = 250
+} = Astro.props;
+
+if (!/^\d+$/.test(slot)) {
+  throw new Error("AdSense slot must contain only numeric characters.");
+}
+---
+
+<div class:list={["adsense-slot", className]} aria-label="Advertisement" data-adsense-container>
+  <ins
+    class="adsbygoogle"
+    style={`display:block;text-align:center;min-height:${minHeight}px`}
+    data-ad-client="ca-pub-6996931662051674"
+    data-ad-slot={slot}
+    data-ad-format={format}
+    data-ad-layout={layout === "in-article" ? "in-article" : undefined}
+    data-full-width-responsive="true"
+  ></ins>
+</div>
+
+<script>
+  const containers = document.querySelectorAll<HTMLElement>("[data-adsense-container]:not([data-observed])");
+
+  containers.forEach((container) => {
+    container.dataset.observed = "true";
+    const ad = container.querySelector<HTMLElement>(".adsbygoogle");
+    if (!ad) return;
+
+    let requested = false;
+    const requestAd = () => {
+      if (requested) return;
+      requested = true;
+      try {
+        const adsbygoogle = ((window as Window & { adsbygoogle?: unknown[] }).adsbygoogle ??= []);
+        adsbygoogle.push({});
+      } catch {
+        container.dataset.adError = "true";
+      }
+    };
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observer.disconnect();
+          requestAd();
+        }
+      }, { rootMargin: "500px 0px" });
+      observer.observe(container);
+    } else {
+      requestAd();
+    }
+  });
+</script>

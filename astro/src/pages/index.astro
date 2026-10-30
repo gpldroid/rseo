@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import AdSenseSlot from "@components/AdSenseSlot.astro";
+---
+
+<BaseLayout
+  title="Fastseo Website Reviewer | Free SEO Audit"
+  description="Run free SEO, PageSpeed, Core Web Vitals and mobile audits with Fastseo."
+  canonicalPath="/"
+  noindex={true}
+>
+  <section class="mx-auto max-w-6xl px-5 py-20">
+    <p class="mb-3 text-sm font-semibold uppercase tracking-widest text-blue-700">Astro migration foundation</p>
+    <h1 class="max-w-3xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">
+      A faster, maintainable foundation for Fastseo
+    </h1>
+    <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
+      This is an isolated migration scaffold. The existing production site remains unchanged until every page,
+      tool, URL and integration has been migrated and verified.
+    </p>
+    <div id="tools" class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="font-semibold text-slate-900">PageSpeed Performance</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-600">Existing tool migration target.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="font-semibold text-slate-900">Core Web Vitals</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-600">Existing tool migration target.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="font-semibold text-slate-900">Mobile UX Test</h2>
+        <p class="mt-2 text-sm leading-6 text-slate-600">Existing tool migration target.</p>
+      </article>
+    </div>
+    <div class="mt-12">
+      <AdSenseSlot slot="3864433783" format="auto" layout="display" minHeight={250} />
+    </div>
+  </section>
+</BaseLayout>

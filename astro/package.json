@@ -1,0 +1,25 @@
+{
+  "name": "fastseo-astro",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.6.0",
+    "astro": "^5.13.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@tailwindcss/vite": "^4.1.13",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5.9.2"
+  }
+}
