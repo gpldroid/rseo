@@ -46,7 +46,7 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const themeSvg = document.getElementById('themeSvg');
         const runDeepAuditBtn = document.getElementById('runDeepAuditBtn');
 
-        const API_ENDPOINT = 'https://prftools-pagespeed-api.fastseo.workers.dev';
+        const API_ENDPOINT = 'https://prftools-pagespeed-api.fastseo.workers.dev/api/pagespeed';
         let currentStrategy = 'mobile';
         let isDarkMode = false;
 
@@ -69,7 +69,7 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
 
         if (runDeepAuditBtn) {
             runDeepAuditBtn.addEventListener('click', () => {
-                showProtectionToast('Full SEO, Meta, Robots, and Backlink audit completed successfully. All metrics are 100% optimized!');
+                showProtectionToast('The full SEO audit is not available yet. No audit was run.');
             });
         }
 
@@ -141,14 +141,20 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
                     const data = await response.json();
 
                     if (!response.ok) {
-                        renderPageSpeedResults(getMockPageSpeedData(url), url);
+                        const message = data?.error || `PageSpeed request failed (HTTP ${response.status}). Please try again later.`;
+                        showError(message);
+                        return;
+                    }
+
+                    if (!data || !data.lighthouseResult) {
+                        showError('The PageSpeed service returned an invalid response. No sample results were substituted.');
                         return;
                     }
 
                     renderPageSpeedResults(data, url);
                 } catch (err) {
-                    console.warn("Using fallback audit dataset", err);
-                    renderPageSpeedResults(getMockPageSpeedData(url), url);
+                    console.error("PageSpeed request failed", err);
+                    showError('Unable to reach the PageSpeed service. Please try again later. No sample results are shown.');
                 } finally {
                     if (loadingState) loadingState.classList.add('hidden');
                     if (submitBtn) submitBtn.disabled = false;
@@ -297,35 +303,6 @@ const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             }
 
             resultsSection.classList.remove('hidden');
-        }
-
-        function getMockPageSpeedData(url) {
-            return {
-                lighthouseResult: {
-                    categories: { performance: { score: 0.95 } },
-                    audits: {
-                        'first-contentful-paint': { score: 0.98, displayValue: '0.9 s', numericValue: 900 },
-                        'largest-contentful-paint': { score: 0.95, displayValue: '1.2 s', numericValue: 1200 },
-                        'total-blocking-time': { score: 0.99, displayValue: '30 ms', numericValue: 30 },
-                        'cumulative-layout-shift': { score: 1.0, displayValue: '0.00', numericValue: 0.0 },
-                        'speed-index': { score: 0.96, displayValue: '1.1 s', numericValue: 1100 },
-                        'render-blocking-resources': {
-                            title: 'Eliminate render-blocking resources',
-                            score: 0.9,
-                            description: 'Critical resources are fully inline and optimized.',
-                            details: { type: 'opportunity', overallSavingsMs: 120 }
-                        }
-                    }
-                },
-                loadingExperience: {
-                    metrics: {
-                        'LARGEST_CONTENTFUL_PAINT_MS': { percentile: 1100, category: 'GOOD' },
-                        'INTERACTION_TO_NEXT_PAINT': { percentile: 45, category: 'GOOD' },
-                        'CUMULATIVE_LAYOUT_SHIFT_SCORE': { percentile: 0, category: 'GOOD' },
-                        'FIRST_CONTENTFUL_PAINT_MS': { percentile: 900, category: 'GOOD' }
-                    }
-                }
-            };
         }
 
         function showProtectionToast(message) {
